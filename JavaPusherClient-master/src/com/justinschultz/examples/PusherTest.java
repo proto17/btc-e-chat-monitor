@@ -40,7 +40,7 @@ public class PusherTest {
     private static boolean needsRestarting = true;
 
     public static void main(String[] args) throws IOException {
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(new File("/tmp/chat.txt")));
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(new File(args[0])));
         PusherListener eventListener = new PusherListener() {
             Channel channel;
 
