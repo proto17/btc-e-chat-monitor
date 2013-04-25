@@ -36,9 +36,11 @@ public class PusherTest {
     private static final String PUSHER_API_KEY = "4e0ebd7a8b66fa3554a4";
     private static final String PUSHER_CHANNEL = "chat_en";
     private static Pusher pusher;
+    
+    private static boolean needsRestarting = true;
 
     public static void main(String[] args) throws IOException {
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(new File("C:\\users\\main-local\\stuff.txt")));
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(new File("/tmp/chat.txt")));
         PusherListener eventListener = new PusherListener() {
             Channel channel;
 
@@ -80,11 +82,21 @@ public class PusherTest {
             @Override
             public void onDisconnect() {
                 System.out.println("Pusher disconnected.");
+                needsRestarting = true;
             }
         };
 
-        pusher = new Pusher(PUSHER_API_KEY);
-        pusher.setPusherListener(eventListener);
-        pusher.connect();
+        while(true){
+            if(needsRestarting == true){
+                pusher = new Pusher(PUSHER_API_KEY);
+                pusher.setPusherListener(eventListener);
+                pusher.connect();
+                
+                needsRestarting = false;
+            }else{
+                try { Thread.sleep(60000); }catch(Exception e){}
+            }
+        }
+        
     }
 }
