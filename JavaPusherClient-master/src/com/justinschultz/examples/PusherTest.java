@@ -38,7 +38,7 @@ public class PusherTest {
     private static Pusher pusher;
 
     public static void main(String[] args) throws IOException {
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(new File("C:\\users\\main-local\\stuff.txt")));
+        final BufferedWriter writer = new BufferedWriter(new FileWriter(new File(args[0])));
         PusherListener eventListener = new PusherListener() {
             Channel channel;
 

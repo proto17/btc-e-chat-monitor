@@ -8,6 +8,8 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="JavaPusherClient" default="default" basedir=".">
+    <arg line="${args}"/>
+
     <description>Builds, tests, and runs the project JavaPusherClient.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
